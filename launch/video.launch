@@ -1,0 +1,9 @@
+<launch>
+
+	<node pkg="image_tansfer" type="video_node" name="image_tansfer"  output="screen" launch-prefix="gdb -ex --args"> > 
+	  
+	  
+	</node>	
+	
+</launch>
+
