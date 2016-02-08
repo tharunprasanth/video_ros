@@ -2,7 +2,7 @@
 #include <image_transport/image_transport.h>
 #include <opencv2/highgui/highgui.hpp>
 
-#include <opencv2/videoio.hpp>
+#include <opencv2/video/video.hpp>
 #include <opencv2/objdetect/objdetect.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <iostream>
@@ -39,10 +39,15 @@ cv::String window_name = "Capture - Face detection";
      if(!cap.isOpened()) return 1;
      cv::Mat frame;
      sensor_msgs::ImagePtr msg;
-   
+
+
+    int frame_width=   cap.get(CV_CAP_PROP_FRAME_WIDTH);
+   int frame_height=   cap.get(CV_CAP_PROP_FRAME_HEIGHT);
+   cv::VideoWriter video("out.avi",CV_FOURCC('M','J','P','G'),10, cv::Size(frame_width,frame_height),true);
      ros::Rate loop_rate(5);
      while (nh.ok()) {
        cap >> frame;
+	 video.write(frame);
        // Check if grabbed frame is actually full with some content
        if(!frame.empty()) {
 	// face detection
